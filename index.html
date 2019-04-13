@@ -5,25 +5,62 @@
     td,th{padding:5px 15px;text-align:left;}
     table,th,td{border:1px solid #000;}
 </style>
+    <link rel="stylesheet" href="home.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 </head>
 <body>
+<header>
+    <h1 class="title">Welcome</h1>
+</header>
+<section>
 <table id="tableId">
     <thead>
     <tr>
-        <th><input type="checkbox" /></th>
-        <th>Size</th>
-        <th>File</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Modified</th>
+        <th>count</th>
+        <th>select</th>
     </tr>
     </thead>
     <tbody>
     <tr>
-        <td><input type="checkbox" /></td>
-        <td>10Mb</td>
-        <td>C:\Users\BrainBell\Desktop\Empty\abc.txt</td>
+        <td>any Name</td>
+        <td>desc</td>
+        <td></td>
+        <td></td>
+        <td><input name='selection' type="checkbox" value="running" /></td>
+        <td rowspan="10">
+            <div id='scene' class='menu' >
+
+            </div>
+            <div class='closed-toggle' >
+                <a><img class="menu-icon " src="assets/icons/arrow-left.png"></a>
+            </div>
+        </td>
     </tr>
+    <tr> <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><input name='selection' type="checkbox" value="basket" /></td></tr>
+    <tr> <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><input name='selection' type="checkbox" value="racing" /></td></tr>
+    <tr> <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><input name='selection' type="checkbox" value="soccer"/></td></tr>
     </tbody>
 </table>
+
+</section>
+<footer>
+    all right reserved to Rahmo 2001
+</footer>
 <script type="text/javascript" src="index.js"></script>
 
 </body>
