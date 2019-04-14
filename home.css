@@ -2,6 +2,7 @@ body {
     display: grid;
     grid-template-rows: 150px auto 100px;
     grid-template-columns: minmax(200px, 3fr) 9fr;
+    font-family: 'Quicksand', sans-serif;
 }
 
 header {
@@ -18,27 +19,106 @@ footer{
 }
 
 table{
-    grid-column: 2 / 3;
+
     margin-left: auto;
     margin-right: auto;
+    height:150px;
+    overflow:auto;
+    margin-top:20px;
 }
 
+ tbody{
+    display:block;
+    overflow:auto;
+    height:400px;
+    width:80%;
+}
+ thead tr{
+    display:block;
+     width:100%;
+}
+ th
+{
+   padding: 10px 10px;
+     border: 0 1;
+}
+th:first-child
+{
+    padding-right: 190px;
+}
+
+tr:hover{
+    background-color: papayawhip;
+}
+tr{
+    cursor: pointer;
+}
+ td{
+     width: 100px;
+     padding: 10px 10px;
+     border: 0px;
+ }
+ td:first-child{
+     width: 90px;
+     padding: 10px 10px;
+ }
+td:last-child{
+    width: 150px;
+    padding: 10px 10px;
+}
+
+.row {
+    border-style: solid;
+    border-width: 1px;
+    border-color: lightslategray ;
+    opacity: 0.9;
+}
+.child-row{
+    background-color: powderblue;
+}
 .title{
     text-align: center;
 }
 
+.open-row{
+ background-color: lightblue;
+}
 
 
+/* Set the background color of body to tan */
+body {
+    background-color: whitesmoke;
+}
+.side-menu{
+    overflow: hidden;
+    position: fixed;
+    right: 26%;
+    top: 17em;
+}
+/* On screens that are 992px or less, set the background color to blue */
 
-/* menu */
 #scene {
-    height: 250px;
+    height: 200px;
     background: ghostwhite;
-    overflow: -webkit-paged-y;
+    overflow: hidden;
+}
+
+.closed-toggle{
+    width:5em;
+    height: 3.5em;
+    transition-duration: 2s;
+    text-align: center;
+    background: ghostwhite;
 }
 
 .icon {
 width:2.5em;height: 2.5em;
+    background-color: #CCCCCC;
+    margin: 4px;
+}
+
+.small-icon{
+    width:1em;height: 1em;
     margin: 0.1em;
     background-color: #CCCCCC;
 }
@@ -55,7 +135,7 @@ width:2.5em;height: 2.5em;
 }
 
 .grow {
-    width: 10em;
+    width: 11em;
     transition-duration: 2s;
 }
 
@@ -66,16 +146,38 @@ width:2.5em;height: 2.5em;
     opacity: 0.5;
 
 }
-.closed-toggle{
-    width:5em;height: 3.5em;
-    background-color: darkgrey;
-    transition-duration: 2s;
-    text-align: center;
-}
 .open-toggle{
     align-items: center;
     text-align: center;
-    width:10em;
+    width:11em;
     background-color: darkseagreen;
     transition-duration: 2s;
 }
+
+@media screen and (max-width: 1100px) {
+    .side-menu{
+        overflow: hidden;
+        position: fixed;
+        right: 19%;
+        top: 17em;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .side-menu{
+        overflow: hidden;
+        position: fixed;
+        right: 16%;
+        top: 17em;
+    }
+}
+@media screen and (max-width: 400px) {
+    .side-menu{
+        overflow: hidden;
+        position: fixed;
+        right: 17em;
+        top: 17em;
+    }
+}
+
+
