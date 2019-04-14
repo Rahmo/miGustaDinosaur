@@ -36,6 +36,7 @@ table{
  thead tr{
     display:block;
      width:100%;
+     background-color: lightblue;
 }
  th
 {
@@ -73,15 +74,23 @@ td:last-child{
     border-color: lightslategray ;
     opacity: 0.9;
 }
+.row:nth-child(even){
+    background-color: ghostwhite;
+}
+.row:first-child {
+    height: 0;
+    opacity: 0;
+    border-width: 0;
+}
 .child-row{
-    background-color: powderblue;
+    background-color: antiquewhite;
 }
 .title{
     text-align: center;
 }
 
 .open-row{
- background-color: lightblue;
+ background-color: lightsteelblue !important;
 }
 
 
