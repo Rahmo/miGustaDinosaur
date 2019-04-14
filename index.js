@@ -19,12 +19,11 @@ function _connectionSetup() {
 
 function _setupActionMenu() {
     $.getJSON("https://raw.githubusercontent.com/Rahmo/miGustaDinosaur/master/SpringCMUIExercise.json", function (json) {
-        console.log();
         json['Actions'].forEach((item) => {
                 let iconPath = `assets/icons/${item.Name.toLowerCase().replace(' ', '')}.png`;
                 let htmlLink = '';
                 if (item.Name == 'Upload') {
-                    htmlLink = '<a class="post"><img class="icon" onclick="postHandler()" src= ' + iconPath + '></a>'
+                    htmlLink = '<a class="post" ><img class="icon" onclick="postHandler()" src= ' + iconPath + '></a>'
                 } else {
                     htmlLink = '<a><img class="icon " src= ' + iconPath + '></a>'
                 }
@@ -34,6 +33,10 @@ function _setupActionMenu() {
     });
 }
 
+function sayHi(e) {
+    e.stopImmediatePropagation();
+    alert("hi");
+}
 function _setupTableRecords() {
     myjson['GridData'].forEach((item) => {
             let iconPath;
@@ -45,13 +48,18 @@ function _setupTableRecords() {
             var t = `<tr data-tag = '${item['Name']}' class="row"> <td> <img class="small-icon " src= ${iconPath}>  <span class="name">${item['Name']}</span></td>\n` +
                 `        <td>${item['Description']}</td>\n` +
                 `        <td>${item['ModifiedDate']}</td>\n` +
-                `        <td></td>\n` +
-                `        <td><input name=\'selection\' type="checkbox" value="${item['Name']}" /></td></tr>`;
+                `        <td>${(item['Children'])?item['Children'].length : '' }</td>\n` +
+                `        <td><input name=\'selection\' type="checkbox"  value="${item['Name']}" /></td></tr>`;
 
             $('tbody').append(t);
         }
     )
 }
+
+//used to stop the TR selection event to fire when selecting the checkbox
+$( "input" ).click(function( event ) {
+    event.stopImmediatePropagation();
+});
 
 /* Events */
 $('.closed-toggle').click(function () {
@@ -72,7 +80,6 @@ $('.closed-toggle').click(function () {
 
 let postHandler = function () {
     var selected = [];
-    console.log('clickkkk');
     $.each($("input[name='selection']:checked"), function () {
         selected.push($(this).val());
     });
@@ -92,7 +99,6 @@ $(document).on('click', '.row', function (e) {
         e.currentTarget.className = 'row';
     } else {
         e.currentTarget.className = 'row open-row';
-        console.log(childrenArray);
         childrenArray.forEach(item => {
             var t = `<tr data-tag = '${item['Name']}' class="child-row"> <td> <span >${item['Name']}</span></td>\n` +
                 `        <td>${item['Description']}</td>\n` +
@@ -100,7 +106,6 @@ $(document).on('click', '.row', function (e) {
                 `        <td></td>\n` +
                 `        <td><input name=\'selection\' type="checkbox" value="${item['Name']}" /></td></tr>`;
 
-            console.log(t);
             $(t).insertAfter($(this).closest('tr'));
         });
     }
