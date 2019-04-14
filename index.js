@@ -92,13 +92,6 @@ $(document).on('click', '.row', function (e) {
         e.currentTarget.className = 'row';
     } else {
         e.currentTarget.className = 'row open-row';
-        let childTag = '<tr data-tag = \'ReadMe.md\' class="child-row">\n' +
-            '        <td>any Name</td>\n' +
-            '        <td>desc</td>\n' +
-            '        <td></td>\n' +
-            '        <td></td>\n' +
-            '        <td><input name=\'selection\' type="checkbox" value="running" /></td>\n' +
-            '    </tr>';
         console.log(childrenArray);
         childrenArray.forEach(item => {
             var t = `<tr data-tag = '${item['Name']}' class="child-row"> <td> <span >${item['Name']}</span></td>\n` +
