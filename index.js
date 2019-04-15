@@ -35,11 +35,6 @@
         });
     }
 
-    function sayHi(e) {
-        e.stopImmediatePropagation();
-        alert("hi");
-    }
-
     function _setupTableRecords(isRerender = false) {
 
         //clear table
