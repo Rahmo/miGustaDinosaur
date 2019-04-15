@@ -1,4 +1,5 @@
 let MeGustaApp = {};
+
 let config = {
     closeToggle: {
         true: function () {
@@ -41,6 +42,7 @@ let config = {
         }
     }
 };
+
 MeGustaApp.fetchData = (function () {
     _connectionSetup = function () {
         $.ajax({
