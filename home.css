@@ -135,7 +135,40 @@ td:last-child {
 body {
     background-color: whitesmoke;
 }
+.btn-name-filter {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    left: 10em;
+    width: 10em;
+    position: relative;
+}
 
+.btn-name-filter:hover {
+    background-color: #ddd;
+}
+
+.btn-name-filter.active {
+    background-color: #666;
+    color: white;
+}
+.btn-date-filter {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    left: 1em;
+    width: 10em;
+    position: relative;
+}
+
+.btn-date-filter:hover {
+    background-color: #ddd;
+}
+
+.btn-date-filter.active {
+    background-color: #666;
+    color: white;
+}
 .side-menu {
     overflow: hidden;
     position: fixed;

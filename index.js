@@ -17,6 +17,7 @@
             }
         });
     }
+    const defaultJson = Object.assign({}, myjson);
 
     function _setupActionMenu() {
         $.getJSON("https://raw.githubusercontent.com/Rahmo/miGustaDinosaur/master/SpringCMUIExercise.json", function (json) {
@@ -39,7 +40,14 @@
         alert("hi");
     }
 
-    function _setupTableRecords() {
+    function _setupTableRecords(isRerender = false) {
+
+        //clear table
+        if (isRerender){
+            for(let i = 0 ; i < myjson['GridData'].length ; i++){
+                $('.row').remove();
+            }
+        }
         myjson['GridData'].forEach((item) => {
                 let iconPath;
                 if (item['Type'] == 'Folder') {
@@ -89,6 +97,35 @@
         alert("You have selected: " + selected.join(", "));
     };
 
+    $(document).on('click', '.btn-name-filter', function (e){
+        if (e.target.value =='true'){
+            $(".btn-name-filter").prop('value', 'false');
+            $('.btn-name-filter').text('^');
+            myjson['GridData'] = defaultJson['GridData'];
+        }
+        else {
+            $(".btn-name-filter").prop('value', 'true');
+            $('.btn-name-filter').text('v');
+            myjson['GridData'] =_.sortBy(myjson['GridData'], 'Name');
+        }
+        _setupTableRecords(true);
+    });
+
+    $(document).on('click', '.btn-date-filter', function (e){
+        if (e.target.value =='true'){
+            $(".btn-date-filter").prop('value', 'false');
+            $('.btn-date-filter').text('^');
+            myjson['GridData'] =  defaultJson['GridData'].sort((d1, d2) => new Date(d1.ModifiedDate).getTime() > new Date(d2.ModifiedDate).getTime());
+        }
+        else {
+            $(".btn-date-filter").prop('value', 'true');
+            $('.btn-date-filter').text('v');
+
+            myjson['GridData'] =  defaultJson['GridData'].sort((d1, d2) => new Date(d1.ModifiedDate).getTime() - new Date(d2.ModifiedDate).getTime());
+        }
+        _setupTableRecords(true);
+    });
+
     $(document).on('click', '.row', function (e) {
         let type = e.currentTarget.attributes.getNamedItem('data-tag').value;
         childrenArray = myjson['GridData'].filter(item => item.Name == type)[0]['Children'];
@@ -112,4 +149,5 @@
             });
         }
     });
+
 })();
