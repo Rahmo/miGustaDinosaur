@@ -61,24 +61,24 @@
         )
     }
 
-//used to stop the TR selection event to fire when selecting the checkbox
+    //used to stop the TR selection event to fire when selecting the checkbox
     $("input").click(function (event) {
         event.stopImmediatePropagation();
     });
 
     /* Events */
-    $('.closed-toggle').click(function () {
+    $('.closed-toggle').click(function (e) {
         if (isOpen == false) {
             $('#scene').removeClass("normal");
             $('#scene').addClass("grow");
             $('.closed-toggle').addClass("open-toggle");
-            $(".menu-icon").attr("src", "assets/icons/arrow-right.png");
+            $(".icon-expand").attr("src", "assets/icons/arrow-right.png");
             isOpen = true;
         } else {
             $('#scene').removeClass("grow");
             $('#scene').addClass("normal");
             $(".closed-toggle").removeClass('open-toggle');
-            $(".menu-icon").attr("src", "assets/icons/arrow-left.png");
+            $(".icon-expand").attr("src", "assets/icons/arrow-left.png");
             isOpen = false;
         }
     });
@@ -92,7 +92,7 @@
         alert("You have selected: " + selected.join(", "));
     };
 
-    $(document).on('click', '.btn-name-filter', function (e){
+    $('thead').on('click', '.btn-name-filter', function (e){
         if (e.target.value =='true'){
             $(".btn-name-filter").prop('value', 'false');
             $('.btn-name-filter').text('^');
@@ -106,7 +106,7 @@
         _setupTableRecords(true);
     });
 
-    $(document).on('click', '.btn-date-filter', function (e){
+    $('thead').on('click', '.btn-date-filter', function (e){
         if (e.target.value =='true'){
             $(".btn-date-filter").prop('value', 'false');
             $('.btn-date-filter').text('^');
@@ -121,7 +121,8 @@
         _setupTableRecords(true);
     });
 
-    $(document).on('click', '.row', function (e) {
+    //propagate up to Table on .row
+    $('table').on('click', '.row', function (e) {
         let type = e.currentTarget.attributes.getNamedItem('data-tag').value;
         childrenArray = myjson['GridData'].filter(item => item.Name == type)[0]['Children'];
         if (childrenArray.length == 0) {
@@ -144,5 +145,4 @@
             });
         }
     });
-
 })();
