@@ -13,3 +13,7 @@
 ####2 ) Submitting selected items as an Alert by pressing the link icon in the Action menu
 ####3 ) Selecting a Parent folder can list the child rows down below it. 
 ####4 ) Sorting by Name and date
+
+
+
+#### Tech stack : JS - html - jquery - used a sort func from _
