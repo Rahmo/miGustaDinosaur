@@ -1,13 +1,48 @@
-(function () {
-    let myjson;
-
-    _connectionSetup();
-    _setupActionMenu();
-    _setupTableRecords();
-
-    let isOpen = false;
-
-    function _connectionSetup() {
+let MeGustaApp = {};
+let config = {
+    closeToggle: {
+        true: function () {
+            $('#scene').removeClass("grow");
+            $('#scene').addClass("normal");
+            $(".closed-toggle").removeClass('open-toggle');
+            $(".icon-expand").attr("src", "assets/icons/arrow-left.png");
+            return false;
+        },
+        false: function () {
+            $('#scene').removeClass("normal");
+            $('#scene').addClass("grow");
+            $('.closed-toggle').addClass("open-toggle");
+            $(".icon-expand").attr("src", "assets/icons/arrow-right.png");
+            return true;
+        }
+    },
+    sortNameFilter: {
+        '^': function (val) {
+            $(".btn-name-filter").prop('value', 'true');
+            $('.btn-name-filter').text('v');
+            return _.sortBy(val, 'Name');
+        },
+        'v': function (val, defaultVal = undefined) {
+            $(".btn-name-filter").prop('value', 'false');
+            $('.btn-name-filter').text('^');
+            return defaultVal;
+        }
+    },
+    sortDateFilter: {
+        '^': function (val) {
+            $(".btn-date-filter").prop('value', 'true');
+            $('.btn-date-filter').text('v');
+            return val.sort((d1, d2) => new Date(d1.ModifiedDate).getTime() - new Date(d2.ModifiedDate).getTime());
+        },
+        'v': function (val) {
+            $(".btn-date-filter").prop('value', 'false');
+            $('.btn-date-filter').text('^');
+            return val.sort((d1, d2) => -1);
+        }
+    }
+};
+MeGustaApp.fetchData = (function () {
+    _connectionSetup = function () {
         $.ajax({
             async: false,
             url: 'https://raw.githubusercontent.com/Rahmo/miGustaDinosaur/master/SpringCMUIExercise.json',
@@ -16,30 +51,41 @@
                 myjson = data
             }
         });
+        return myjson;
+    };
+    return {
+        myjson: _connectionSetup()
     }
+})();
+
+MeGustaApp.MyModule = (function (config) {
+    let myjson = MeGustaApp.fetchData.myjson;
+
+    _setupActionMenu();
+    _setupTableRecords();
+
+    let isOpen = false;
     const defaultJson = Object.assign({}, myjson);
 
     function _setupActionMenu() {
-        $.getJSON("https://raw.githubusercontent.com/Rahmo/miGustaDinosaur/master/SpringCMUIExercise.json", function (json) {
-            json['Actions'].forEach((item) => {
-                    let iconPath = `assets/icons/${item.Name.toLowerCase().replace(' ', '')}.png`;
-                    let htmlLink = '';
-                    if (item.Name == 'Upload') {
-                        htmlLink = '<a class="post" ><img class="icon" onclick="postHandler()" src= ' + iconPath + '></a>'
-                    } else {
-                        htmlLink = '<a><img class="icon " src= ' + iconPath + '></a>'
-                    }
-                    $('#scene').append(htmlLink)
+        myjson['Actions'].forEach((item) => {
+                let iconPath = `assets/icons/${item.Name.toLowerCase().replace(' ', '')}.png`;
+                let htmlLink = '';
+                if (item.Name == 'Upload') {
+                    htmlLink = '<a class="post" ><img class="icon" onclick="postHandler()" src= ' + iconPath + '></a>'
+                } else {
+                    htmlLink = '<a><img class="icon " src= ' + iconPath + '></a>'
                 }
-            )
-        });
+                $('#scene').append(htmlLink)
+            }
+        )
     }
 
     function _setupTableRecords(isRerender = false) {
 
         //clear table
-        if (isRerender){
-            for(let i = 0 ; i < myjson['GridData'].length ; i++){
+        if (isRerender) {
+            for (let i = 0; i < myjson['GridData'].length; i++) {
                 $('.row').remove();
             }
         }
@@ -61,26 +107,15 @@
         )
     }
 
+    /* Events */
+
     //used to stop the TR selection event to fire when selecting the checkbox
     $("input").click(function (event) {
         event.stopImmediatePropagation();
     });
 
-    /* Events */
     $('.closed-toggle').click(function (e) {
-        if (isOpen == false) {
-            $('#scene').removeClass("normal");
-            $('#scene').addClass("grow");
-            $('.closed-toggle').addClass("open-toggle");
-            $(".icon-expand").attr("src", "assets/icons/arrow-right.png");
-            isOpen = true;
-        } else {
-            $('#scene').removeClass("grow");
-            $('#scene').addClass("normal");
-            $(".closed-toggle").removeClass('open-toggle');
-            $(".icon-expand").attr("src", "assets/icons/arrow-left.png");
-            isOpen = false;
-        }
+        isOpen = config.closeToggle[isOpen]();
     });
 
     this.postHandler = function () {
@@ -92,32 +127,13 @@
         alert("You have selected: " + selected.join(", "));
     };
 
-    $('thead').on('click', '.btn-name-filter', function (e){
-        if (e.target.value =='true'){
-            $(".btn-name-filter").prop('value', 'false');
-            $('.btn-name-filter').text('^');
-            myjson['GridData'] = defaultJson['GridData'];
-        }
-        else {
-            $(".btn-name-filter").prop('value', 'true');
-            $('.btn-name-filter').text('v');
-            myjson['GridData'] =_.sortBy(myjson['GridData'], 'Name');
-        }
+    $('thead').on('click', '.btn-name-filter', function (e) {
+        myjson['GridData'] = config.sortNameFilter[e.target.innerText](myjson['GridData'], defaultJson['GridData']);
         _setupTableRecords(true);
     });
 
-    $('thead').on('click', '.btn-date-filter', function (e){
-        if (e.target.value =='true'){
-            $(".btn-date-filter").prop('value', 'false');
-            $('.btn-date-filter').text('^');
-            myjson['GridData'] =  defaultJson['GridData'].sort((d1, d2) => new Date(d1.ModifiedDate).getTime() > new Date(d2.ModifiedDate).getTime());
-        }
-        else {
-            $(".btn-date-filter").prop('value', 'true');
-            $('.btn-date-filter').text('v');
-
-            myjson['GridData'] =  defaultJson['GridData'].sort((d1, d2) => new Date(d1.ModifiedDate).getTime() - new Date(d2.ModifiedDate).getTime());
-        }
+    $('thead').on('click', '.btn-date-filter', function (e) {
+        myjson['GridData'] = config.sortDateFilter[e.target.innerText](myjson['GridData']);
         _setupTableRecords(true);
     });
 
@@ -145,4 +161,4 @@
             });
         }
     });
-})();
+})(config);

@@ -140,12 +140,12 @@ th:last-child {
 
 
 /* Set the background color of body to tan */
-.btn-name-filter {
+a.btn-name-filter {
     border: none;
     outline: none;
     cursor: pointer;
     left: 10em;
-    width: 10em;
+    width: 20px;
     position: relative;
 }
 
@@ -270,7 +270,7 @@ th:last-child {
 }
 
 
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 1000px) {
     .side-menu {
         overflow: hidden;
         position: fixed;
@@ -290,5 +290,3 @@ th:last-child {
         top: 17em;
     }
 }
-
-
