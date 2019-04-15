@@ -9,61 +9,94 @@ header {
     grid-column: 1 / 3;
 }
 
-section{
+section {
     grid-column: 1 / 3;
 }
 
-footer{
+* {
+    box-sizing: border-box;
+}
+
+table {
+    border-collapse: collapse;
+    width: 60em;
+    background-color: white;
+}
+
+th {
+    padding: 5px 15px;
+    text-align: left;
+    background-color: lightblue;
+}
+
+table, th, td {
+    border: 1px solid #000;
+}
+
+footer {
     text-align: center;
     grid-column: 1 / 3;
 }
 
-table{
+table {
 
     margin-left: auto;
     margin-right: auto;
-    height:150px;
-    overflow:auto;
-    margin-top:20px;
+    height: 150px;
+    overflow: auto;
+    margin-top: 20px;
 }
 
- tbody{
-    display:block;
-    overflow:auto;
-    height:400px;
-    width:80%;
+tbody {
+    display: block;
+    overflow: auto;
+    height: 400px;
+    width: 90%;
 }
- thead tr{
-    display:block;
-     width:100%;
-     background-color: lightblue;
+
+thead tr {
+    display: block;
+    width: 100%;
 }
- th
-{
-   padding: 10px 10px;
-     border: 0 1;
+
+th {
+    width: 9em;
+    padding: 10px 10px;
+    border: 0px 1px;
 }
-th:first-child
-{
+
+th:first-child {
     padding-right: 190px;
 }
 
-tr:hover{
-    background-color: papayawhip;
+th:last-child {
+    padding-right: 113px;
 }
-tr{
+
+.row:hover {
+    background-color: papayawhip !important;
+}
+
+.row:first-child {
+    display: none;
+}
+
+tr {
     cursor: pointer;
 }
- td{
-     width: 100px;
-     padding: 10px 10px;
-     border: 0px;
- }
- td:first-child{
-     width: 90px;
-     padding: 10px 10px;
- }
-td:last-child{
+
+td {
+    width: 150px;
+    padding: 10px 10px;
+    border: 0px;
+}
+
+td:first-child {
+    width: 90px;
+    padding: 10px 10px;
+}
+
+td:last-child {
     width: 150px;
     padding: 10px 10px;
 }
@@ -71,26 +104,30 @@ td:last-child{
 .row {
     border-style: solid;
     border-width: 1px;
-    border-color: lightslategray ;
+    border-color: lightslategray;
     opacity: 0.9;
 }
-.row:nth-child(even){
+
+.row:nth-child(even) {
     background-color: ghostwhite;
 }
+
 .row:first-child {
     height: 0;
     opacity: 0;
     border-width: 0;
 }
-.child-row{
-    background-color: antiquewhite;
+
+.child-row {
+    background-color: lightgoldenrodyellow;
 }
-.title{
+
+.title {
     text-align: center;
 }
 
-.open-row{
- background-color: lightsteelblue !important;
+.open-row {
+    background-color: lightsteelblue !important;
 }
 
 
@@ -98,36 +135,44 @@ td:last-child{
 body {
     background-color: whitesmoke;
 }
-.side-menu{
+
+.side-menu {
     overflow: hidden;
     position: fixed;
-    right: 26%;
+    right: 17%;
     top: 17em;
+    height: 20em;
 }
+
 /* On screens that are 992px or less, set the background color to blue */
 
 #scene {
-    height: 200px;
-    background: ghostwhite;
+    height: 250px;
+    background: white;
     overflow: hidden;
+    text-align: center;
 }
 
-.closed-toggle{
-    width:5em;
+.closed-toggle {
+    width: 5em;
     height: 3.5em;
     transition-duration: 2s;
     text-align: center;
     background: ghostwhite;
+    border-radius: 5px;
 }
 
 .icon {
-width:2.5em;height: 2.5em;
+    width: 3.2em;
+    height: 3.2em;
     background-color: #CCCCCC;
     margin: 4px;
+    border-radius: 6px;
 }
 
-.small-icon{
-    width:1em;height: 1em;
+.small-icon {
+    width: 1em;
+    height: 1em;
     margin: 0.1em;
     background-color: #CCCCCC;
 }
@@ -144,47 +189,52 @@ width:2.5em;height: 2.5em;
 }
 
 .grow {
-    width: 11em;
+    width: 16em;
     transition-duration: 2s;
 }
 
-.menu-icon{
-    width:3em;height: 3.5em;
+.menu-icon {
+    width: 3em;
+    height: 3.5em;
     margin: 0em;
     background-color: #CCCCCC;
     opacity: 0.5;
 
 }
-.open-toggle{
+
+.open-toggle {
     align-items: center;
     text-align: center;
-    width:11em;
+    width: 16em;
     background-color: darkseagreen;
     transition-duration: 2s;
 }
 
+/*Mobile*/
 @media screen and (max-width: 1100px) {
-    .side-menu{
+    .side-menu {
         overflow: hidden;
         position: fixed;
-        right: 19%;
+        right: 3%;
         top: 17em;
     }
 }
 
+
 @media screen and (max-width: 992px) {
-    .side-menu{
+    .side-menu {
         overflow: hidden;
         position: fixed;
-        right: 16%;
+        right: 2%;
         top: 17em;
     }
 }
+
 @media screen and (max-width: 400px) {
-    .side-menu{
+    .side-menu {
         overflow: hidden;
         position: fixed;
-        right: 17em;
+        right: 1em;
         top: 17em;
     }
 }
